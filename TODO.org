@@ -1,0 +1,7 @@
+* TODO check Hetzner status: http://www.hetzner-status.de/
+* TODO check AWS status: http://status.aws.amazon.com/
+* TODO check DNS entries: with dig
+* TODO check if haproxy is running on lb1 & lb2
+* TODO check if haproxy configs are the same on lb1 & lb2
+* TODO check if heartbeat is running on lb1 & lb2
+* TODO check if heartbeat configs are the same on lb1 & lb2
