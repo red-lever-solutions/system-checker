@@ -1,4 +1,4 @@
-monitor:
+checker:
   build: .
   volumes:
     - ./src:/src
