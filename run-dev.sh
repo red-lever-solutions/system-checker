@@ -1,5 +1,7 @@
 #!/bin/sh
 
+mkdir config status
+
 docker build -t system-checker:dev . && \
 docker run --rm \
        -v $(pwd)/src:/src \
