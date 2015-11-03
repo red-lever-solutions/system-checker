@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir config status logs
+mkdir -p config status logs
 
-docker build -t system-checker:dev . && \
+docker build -f Dockerfile-checker -t system-checker:dev . && \
 docker run --rm \
        -v $(pwd)/src:/src \
        -v $(pwd)/config:/config \
