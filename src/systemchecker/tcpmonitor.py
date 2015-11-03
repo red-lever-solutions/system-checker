@@ -25,6 +25,7 @@ def monitor(endpoint):
         return TCPInfo(endpoint=endpoint, success=False, msg=str(e))
     finally:
         try:
+            log.debug("Closing the TCP connection")
             sock.close()
         except:
             pass
