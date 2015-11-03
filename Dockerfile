@@ -5,5 +5,8 @@ MAINTAINER Johann Fuechsl <fuechsl@redlever.solutions>
 VOLUME /config
 VOLUME /status
 
+COPY requirements.txt /requirements.txt
+RUN pip install -r requirements.txt
+
 WORKDIR /src
-CMD ["python", "-m", "servicemonitor.app"]
+CMD ["python", "-m", "systemchecker.app"]
