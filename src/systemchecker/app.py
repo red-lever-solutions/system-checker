@@ -1,13 +1,12 @@
 from .mylog import log
 from . import tcpmonitor
+from . import checkerwatcher
+from . import scheduler
 
 def main():
-    mres = tcpmonitor.monitor(tcpmonitor.EndpointInfo(
-        host="alphary-lb1.alphary-english.net",
-        port=80,
-        timeout=10
-    ))
-    log.info("Got monitoring result: %s", mres)
+    checkerwatcher.start()
+    scheduler.run()
+    checkerwatcher.stop()
 
 if __name__ == "__main__":
     main()
