@@ -1,8 +1,0 @@
-checker:
-  build: .
-  volumes:
-    - ./src:/src
-    - /config:/config
-    - /status:status
-  environment:
-    PYTHONUNBUFFERED: "1"

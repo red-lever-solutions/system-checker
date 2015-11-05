@@ -1,0 +1,14 @@
+checker:
+  build: .
+  dockerfile: Dockerfile-checker
+  volumes:
+    - ./src:/src
+    - ./config:/config
+    - ./status:/status
+    - ./logs:/logs
+  environment:
+    PYTHONUNBUFFERED: "1"
+
+tipboard:
+  build: .
+  dockerfile: Dockerfile-tipboard
