@@ -1,4 +1,5 @@
 from . import tcpmonitor
+from . import awsmonitor
 from .mylog import log
 
 import os
@@ -38,8 +39,15 @@ def _build_tcpmonitor(host, port, timeout):
         return CheckerResult(success=res.success, message=res.message)
     return cf
 
+def _build_awsmonitor(services):
+    def cf():
+        res = awsmonitor.monitor(services)
+        return CheckerResult(success=res.success, message=res.message)
+    return cf
+
 _checker_builder_map = {
-    "TCPListen": _build_tcpmonitor
+    "TCPListen": _build_tcpmonitor,
+    "AWSStatus": _build_awsmonitor
 }
 
 def _checker_id_from_filename(filename):

@@ -23,7 +23,9 @@ def monitor(endpoint):
         log.warning("Could not connect to the endpoint %s: %s",
                     print_endpoint(endpoint),
                     str(e))
-        return TCPInfo(endpoint=endpoint, success=False, message=str(e))
+        return TCPInfo(endpoint=endpoint,
+                       success=False,
+                       message="{0:s} {1:s}".format(print_endpoint(endpoint), str(e)))
     finally:
         try:
             log.debug("Closing the TCP connection")

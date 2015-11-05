@@ -1,3 +1,5 @@
 watchdog
 apscheduler
 requests
+beautifulsoup4
+lxml
