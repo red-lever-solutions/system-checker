@@ -3,7 +3,7 @@ from operator import itemgetter
 import json
 
 from .checkerlog import get_checker_memlog
-from .checker import get_checker_config
+from .checker import get_checker_config_dict
 from .mylog import log
 from .scheduler import add_dashboard_updater
 
@@ -17,9 +17,9 @@ TIPBOARD_UPDATE_INTERVAL = 2
 _api_session = requests.Session()
 
 def _base_url():
-    return "http://{host:s}/{api_version:s}/{api_key:s}" \
-        .format(host=TIPBOARD_HOST,
-                api_version=TIPBOARD_API_VERION,
+    return "http://{host:s}/api/{api_version:s}/{api_key:s}" \
+        .format(host=TIPBOARD_API_HOST,
+                api_version=TIPBOARD_API_VERSION,
                 api_key=TIPBOARD_API_KEY)
 
 def _push_url():
@@ -30,7 +30,7 @@ def _config_url():
 
 def _build_dashboard_data_base(checker_config):
     data = []
-    for checker_id, config in checker_config.iteritems():
+    for checker_id, config in checker_config.items():
         clog = get_checker_memlog(checker_id)
         if clog is None:
             continue
@@ -49,7 +49,7 @@ def _build_dashboard_data(data_base):
     } for cr in data_base]
 
 def _build_dashboard_config(data_base):
-    config = {str(ix): {"label_color": "green" if cr[2] else "red"}
+    config = {str(ix+1): {"label_color": "green" if cr[2] else "red"}
               for ix, cr in enumerate(data_base)}
     config["vertical_center"] = True
     return config
@@ -77,7 +77,7 @@ def _push_config(config):
         log.warning("Could not push checker config (%s)", response.text)
 
 def push():
-    data_base = _build_dashboard_data_base(get_checker_config())
+    data_base = _build_dashboard_data_base(get_checker_config_dict())
     data = _build_dashboard_data(data_base)
     config = _build_dashboard_config(data_base)
     if len(data) > 0:

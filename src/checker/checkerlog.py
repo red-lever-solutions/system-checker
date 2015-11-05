@@ -5,6 +5,8 @@ import json
 from collections import OrderedDict
 from datetime import datetime
 
+from .mylog import log
+
 CHECKER_LOG_DIR = "/logs"
 CHECKER_STATUS_DIR = "/status"
 
