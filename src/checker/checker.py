@@ -1,5 +1,6 @@
 from . import tcpmonitor
 from . import awsmonitor
+from . import hostping
 from .mylog import log
 
 import os
@@ -39,6 +40,14 @@ def _build_tcpmonitor(host, port, timeout):
         return CheckerResult(success=res.success, message=res.message)
     return cf
 
+def _build_hostping(host, timeout):
+    def cf():
+        res = hostping.monitor(hostping.PingTarget(
+            host=host,
+            timeout=timeout))
+        return CheckerResult(success=res.success, message=res.message)
+    return cf
+
 def _build_awsmonitor(services):
     def cf():
         res = awsmonitor.monitor(services)
@@ -47,7 +56,8 @@ def _build_awsmonitor(services):
 
 _checker_builder_map = {
     "TCPListen": _build_tcpmonitor,
-    "AWSStatus": _build_awsmonitor
+    "AWSStatus": _build_awsmonitor,
+    "HostPing": _build_hostping
 }
 
 def _checker_id_from_filename(filename):
