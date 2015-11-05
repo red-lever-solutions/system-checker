@@ -75,3 +75,6 @@ def get_checker_config(checker_id):
     if not checker_id in _checker_configs:
         log.error("Checker %s not found.", checker_id)
     return _checker_configs.get(checker_id)
+
+def get_checker_config_dict():
+    return _checker_configs

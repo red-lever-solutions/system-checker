@@ -1,0 +1,14 @@
+details:
+  page_title: System Checker
+layout:
+  - row_2_of_2:
+    - col_1_of_2:
+      - tile_template: scrollable_fancy_listing
+        tile_id: service-checker-tile
+        title: Checker status
+        classes:
+    - col_1_of_2:
+      - tile_template: empty
+        tile_id: empty
+        title: General information
+        classes:

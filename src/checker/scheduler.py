@@ -32,6 +32,17 @@ def set_checkers(checkers):
     for checker in checkers:
         _add_checker(checker)
 
+def add_dashboard_updater(updater_fun, interval_seconds):
+    log.debug("Adding the dasboard updater job")
+    _scheduler.add_job(
+        updater_fun,
+        IntervalTrigger(seconds=interval_seconds),
+        id="Dashboard Updater",
+        name="Dashboard Updater",
+        replace_existing=True,
+        coalesce=True,
+        executor="asyncio")
+
 def run():
     log.info("Starting checker scheduler")
     _scheduler.start()

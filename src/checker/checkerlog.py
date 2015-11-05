@@ -58,6 +58,17 @@ def write_checker_status(checker_id, checker_result):
         w.flush()
         os.fsync(w.fileno())
 
+_checker_memlog = dict()
+
+def write_checker_memlog(checker_id, checker_result):
+    _checker_memlog[checker_id] = checker_result
+
+def get_checker_memlog(checker_id):
+    if not checker_id in _checker_memlog:
+        log.debug("Memlog for checker %s not found.", checker_id)
+    return _checker_memlog.get(checker_id)
+
 def log_checker_result(checker_id, checker_result):
+    write_checker_memlog(checker_id, checker_result)
     write_checker_status(checker_id, checker_result)
     write_checker_log(checker_id, checker_result)
