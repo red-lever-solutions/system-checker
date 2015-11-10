@@ -10,7 +10,8 @@ if [ -z "$BUILD_TAG" ]; then
 fi
 
 cd $TMPWD
-git clone "$ORIGWD"
+git clone "$ORIGWD" deploy_repo
+cd deploy_repo
 git checkout tags/"$BUILD_TAG"
 
 docker build -t tutum.co/fuechsl/system-checker:"$BUILD_TAG" -f Dockerfile-checker .
@@ -22,4 +23,4 @@ docker push tutum.co/fuechsl/system-checker:"$BUILD_TAG"
 docker push tutum.co/fuechsl/system-checker-dashboard:"$BUILD_TAG"
 
 cd "$ORIGWD"
-rm -r $TMPWD
+rm -rf $TMPWD
