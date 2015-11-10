@@ -6,6 +6,8 @@ VOLUME /config
 VOLUME /status
 VOLUME /logs
 
+RUN apt-get update && apt-get install -y openssh-client
+
 COPY requirements-checker.txt /requirements.txt
 RUN pip install -r requirements.txt
 

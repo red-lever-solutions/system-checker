@@ -1,5 +1,8 @@
 from . import tcpmonitor
 from . import awsmonitor
+from . import pidmonitor
+from . import filesyncmonitor
+from . import httpstatusmonitor
 from . import hostping
 from .mylog import log
 
@@ -20,7 +23,7 @@ CheckerResult = namedtuple("CheckerResult", field_names=[
     "message"
 ])
 
-CHECKER_CONFIG_DIR = "/config"
+CHECKER_CONFIG_DIR = "/config/checkers"
 
 def get_checker_config_dir():
     return CHECKER_CONFIG_DIR
@@ -54,10 +57,31 @@ def _build_awsmonitor(services):
         return CheckerResult(success=res.success, message=res.message)
     return cf
 
+def _build_pidmonitor(hosts, process_search):
+    def cf():
+        res = pidmonitor.monitor(hosts, process_search)
+        return CheckerResult(success=res["success"], message=res["message"])
+    return cf
+
+def _build_filesyncmonitor(hosts, file_path):
+    def cf():
+        res = filesyncmonitor.monitor(hosts, file_path)
+        return CheckerResult(success=res["success"], message=res["message"])
+    return cf
+
+def _build_httpstatusmonitor(url):
+    def cf():
+        res = httpstatusmonitor.monitor(url)
+        return CheckerResult(success=res["success"], message=res["message"])
+    return cf
+
 _checker_builder_map = {
     "TCPListen": _build_tcpmonitor,
     "AWSStatus": _build_awsmonitor,
-    "HostPing": _build_hostping
+    "ProcessMonitor": _build_pidmonitor,
+    "FileSync": _build_filesyncmonitor,
+    "HostPing": _build_hostping,
+    "HTTPStatus": _build_httpstatusmonitor
 }
 
 def _checker_id_from_filename(filename):
