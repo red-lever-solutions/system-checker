@@ -23,6 +23,7 @@ def get_checker_logger(checker_id):
         return _checker_loggers[checker_id]
     checker_logger = logging.getLogger(checker_id)
     checker_logger.setLevel(logging.INFO)
+    checker_logger.propagate = False
     handler = TimedRotatingFileHandler(
         filename=os.path.join(get_checker_log_dir(),
                               "{0:s}.log".format(checker_id)),
