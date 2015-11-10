@@ -6,8 +6,8 @@ def map(commands):
     results = []
     for proc in processes:
         try:
-            outs, errs = proc.communicate(timeout=15)
-        except TimeoutExpired:
+            outs, errs = proc.communicate(timeout=5)
+        except subprocess.TimeoutExpired:
             proc.kill()
             outs, errs = proc.communicate()
         results.append((proc.returncode, outs, errs))
