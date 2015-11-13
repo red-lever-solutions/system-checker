@@ -39,7 +39,7 @@ def _build_dashboard_data_base(checker_config):
                      config.name,
                      clog.success,
                      clog.message))
-    return list(map(lambda t: t[1:], sorted(data, key=itemgetter(0), reverse=True)))
+    return list(map(lambda t: t[1:], sorted(data, key=lambda cr: (not cr[3], cr[0]), reverse=True)))
 
 def _build_dashboard_data(data_base):
     return [{
