@@ -1,4 +1,3 @@
-import subprocess
 import os
 
 REMOTE_CONFIG_PATH = "/config/remote"
