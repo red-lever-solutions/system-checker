@@ -76,9 +76,9 @@ def _build_filesyncmonitor(hosts, file_path):
         return CheckerResult(success=res["success"], message=res["message"])
     return cf
 
-def _build_httpstatusmonitor(url):
+def _build_httpstatusmonitor(url, verify_ssl=True):
     def cf():
-        res = httpstatusmonitor.monitor(url)
+        res = httpstatusmonitor.monitor(url, verify_ssl)
         return CheckerResult(success=res["success"], message=res["message"])
     return cf
 

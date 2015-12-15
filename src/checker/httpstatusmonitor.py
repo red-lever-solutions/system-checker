@@ -2,9 +2,12 @@ from .mylog import log
 
 import requests
 
-def monitor(url):
+def monitor(url, verify_ssl=True):
     log.debug("Checking http status code of %s", url)
-    response = requests.get(url)
+    try:
+        response = requests.get(url, verify=verify_ssl)
+    except Exception as e:
+        return {"success": False, "message": str(e)}
     log.debug("Got status code %s", response.status_code)
     if response.status_code == requests.codes.ok:
         success = True
