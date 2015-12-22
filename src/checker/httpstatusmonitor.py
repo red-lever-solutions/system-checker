@@ -2,10 +2,15 @@ from .mylog import log
 
 import requests
 
-def monitor(url, verify_ssl=True):
+def monitor(url, method="GET", data=None, headers=None, verify_ssl=True):
     log.debug("Checking http status code of %s", url)
     try:
-        response = requests.get(url, verify=verify_ssl)
+        if method.lower() == "get":
+            response = requests.get(url, data=data, headers=headers, verify=verify_ssl)
+        elif method.lower() == "post":
+            response = requests.post(url, data=data, headers=headers, verify=verify_ssl)
+        else:
+            raise Exception("Method not supported {:s}".format(method.upper()))
     except Exception as e:
         return {"success": False, "message": str(e)}
     log.debug("Got status code %s", response.status_code)
