@@ -1,0 +1,7 @@
+interval_seconds: 10
+importance: 70
+name: "HTTPStatus"
+config:
+  url: https://www.google.com
+  method: GET
+  

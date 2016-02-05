@@ -1,0 +1,13 @@
+interval_seconds: 60
+importance: 100
+name: "AWSStatus"
+config:
+  services:
+    - "Amazon Relational Database Service (Frankfurt)"
+    - "Amazon Simple Storage Service (Frankfurt)"
+    - "Amazon Virtual Private Cloud (Frankfurt)"
+    - "AWS CloudTrail (Frankfurt)"
+    - "AWS Key Management Service (Frankfurt)"
+    - "Amazon CloudWatch (Frankfurt)"
+    - "Amazon Elastic Compute Cloud (Frankfurt)"
+    
