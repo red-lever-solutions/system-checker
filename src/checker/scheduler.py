@@ -26,7 +26,8 @@ def _add_checker(checker):
         name=checker[0],
         replace_existing=True,
         coalesce=True,
-        executor="asyncio")
+        executor="asyncio",
+        misfire_grace_time=2)
     _checker_jobs[checker[0]] = job
 
 def _remove_checker_jobs():
