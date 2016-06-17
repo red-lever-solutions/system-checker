@@ -1,6 +1,7 @@
 from . import tcpmonitor
 from . import awsmonitor
 from . import pidmonitor
+from . import psscriptmonitor
 from . import dnsmonitor
 from . import filesyncmonitor
 from . import httpstatusmonitor
@@ -64,6 +65,12 @@ def _build_pidmonitor(hosts, process_search):
         return CheckerResult(success=res["success"], message=res["message"])
     return cf
 
+def _build_psscriptmonitor(hosts, script):
+    def cf():
+        res = psscriptmonitor.monitor(hosts, script)
+        return CheckerResult(success=res["success"], message=res["message"])
+    return cf
+
 def _build_dnsmonitor(dns_names):
     def cf():
         res = dnsmonitor.monitor(dns_names)
@@ -89,7 +96,8 @@ _checker_builder_map = {
     "FileSync": _build_filesyncmonitor,
     "HostPing": _build_hostping,
     "HTTPStatus": _build_httpstatusmonitor,
-    "DNS": _build_dnsmonitor
+    "DNS": _build_dnsmonitor,
+    "Powershell": _build_psscriptmonitor,
 }
 
 def _checker_id_from_filename(filename):
