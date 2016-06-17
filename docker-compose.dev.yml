@@ -1,20 +1,23 @@
-checker:
-  build: .
-  dockerfile: Dockerfile-checker
-  container_name: system-checker
-  volumes:
-    - ./src:/src
-    - ./config:/config
-    - ./status:/status
-    - ./logs:/logs
-  environment:
-    PYTHONUNBUFFERED: "1"
+version: "2"
 
-tipboard:
-  build: .
-  dockerfile: Dockerfile-tipboard
-  container_name: tipboard
-  volumes:
-    - ./src:/src
-  ports:
-    - 0.0.0.0:8080:8080
+services:
+  checker:
+    build:
+      context: .
+      dockerfile: Dockerfile-checker
+    volumes:
+      - ./src:/src
+      - ./config:/config
+      - ./status:/status
+      - ./logs:/logs
+    environment:
+      PYTHONUNBUFFERED: "1"
+
+  tipboard:
+    build:
+      context: .
+      dockerfile: Dockerfile-tipboard
+    volumes:
+      - ./src:/src
+    ports:
+      - 8080:8080

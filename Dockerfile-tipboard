@@ -3,12 +3,12 @@ FROM python:2.7
 MAINTAINER Johann Fuechsl <fuechsl@redlever.solutions>
 
 RUN apt-get update && \
-    apt-get install -y redis-server supervisor && \
+    apt-get install -y --force-yes redis-server supervisor && \
     ln -s /src/tipboard-config /root/.tipboard && \
-    mkdir /root/logs
-
-COPY requirements-tipboard.txt /requirements.txt
-RUN pip install -r /requirements.txt
+    mkdir /root/logs && \
+    mkdir /src && \
+    git clone git://github.com/red-lever-solutions/tipboard /src/tipboard && \
+    cd /src/tipboard && pip install .
 
 COPY tipboard-image/supervisord.conf /etc/supervisor/supervisord.conf
 
