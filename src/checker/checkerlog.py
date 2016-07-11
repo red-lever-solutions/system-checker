@@ -44,7 +44,7 @@ def _checker_result_record(checker_id, checker_result):
     return OrderedDict([
         ("timestamp", datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")),
         ("checker_id", checker_id),
-        ("result", checker_result._asdict)
+        ("result", checker_result._asdict())
     ])
 
 def write_checker_log(checker_id, checker_result):
